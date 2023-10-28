@@ -1,19 +1,21 @@
 #include <iostream>
-#include <mutex>
 #include "main.hpp"
 #include "Mylist.hpp"
 #include <thread>
+#include <future>
 
 int main(int, char**){
     m29hw::Mylist<int> list_int;
     m29hw::Mylist<double> list_double;
+    m29hw::Mylist<char> list_char;
 
-    std::thread t1(m29hw::threadFunc<int>, std::ref(list_int));
-    std::thread t2(m29hw::threadFunc<int>, std::ref(list_int));
-    std::thread t3(m29hw::threadFunc<int>, std::ref(list_int));
-    t1.join();
-    t2.join();
-    t3.join();
+    std::future<void> f1, f2, f3;
+    f1 = std::async(std::launch::async, m29hw::threadFunc<int>, std::ref(list_int));
+    f2 = std::async(std::launch::async, m29hw::threadFunc<int>, std::ref(list_int));
+    f3 = std::async(std::launch::async, m29hw::threadFunc<int>, std::ref(list_int));
+    f1.wait();
+    f2.wait();
+    f3.wait();
     std::cout << "Print list int\n";
     std::cout << list_int;
 
