@@ -1,3 +1,6 @@
+/*
+Ш
+*/
 #pragma once
 
 #include <mutex>
@@ -32,14 +35,12 @@ namespace m29hw
             size_t current_position = 1;
 
             mylist_mutex.lock();               // блокируем список
-            // std::cout << "Mylist 1\n";
             if(!head) 
             {
                 head = new Node(value);
                 mylist_mutex.unlock();
                 return;
             }
-            // std::cout << "Mylist 2\n";
 
             if(pos == 0)
             {
@@ -48,7 +49,6 @@ namespace m29hw
                 mylist_mutex.unlock();
                 return;
             }
-            // std::cout << "Mylist 3\n";
 
             prev = this->head;
             cur = prev->next;
@@ -56,7 +56,6 @@ namespace m29hw
             mylist_mutex.unlock();             // разблокируем список
 
             if(cur){ cur->node_mutex.lock(); }
-            // std::cout << "Mylist 4\n";
             while(cur && (current_position != pos))
             {
                 Node* old_prev = prev;
