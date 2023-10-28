@@ -29,6 +29,19 @@ namespace m29hw
         std::mutex mylist_mutex;
 
     public:
+        ~Mylist()
+        {
+            Node* node = head;
+            Node* nextnode = nullptr;
+            while(node)
+            {
+                std::cout << "Delete node: " << node << '\n';
+                if(node->next) nextnode = node->next;
+                else nextnode = nullptr;
+                delete node;
+                node = nextnode;
+            }
+        }
         void insertIntoMiddle(T value, int pos)
         {
             Node *prev, *cur;
